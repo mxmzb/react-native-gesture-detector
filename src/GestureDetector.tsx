@@ -1,6 +1,5 @@
-import React, { useState, useEffect, ReactNode } from "react";
+import React, { useState, useEffect, ReactNode, useRef } from "react";
 import { PanGestureHandler, State } from "react-native-gesture-handler";
-import _ from "lodash";
 
 interface Coordinate {
   x: number;
@@ -8,14 +7,17 @@ interface Coordinate {
 }
 
 type GestureDetectorProps = {
-  children: (props: { coordinate: Coordinate }) => ReactNode;
+  children: (props: { coordinate: Coordinate | null }) => ReactNode;
   slopRadius: number;
-  gestures: [Coordinate];
-  onProgress: any;
-  onGestureFinish: any;
-  onPanRelease: any;
-  throttleMs: any;
+  gestures: { [key: string]: [Coordinate] };
+  onProgress: (args: { progress: number; gesture: string }) => void;
+  onGestureFinish: (gestureKey: string) => void;
+  onPanRelease: () => void;
 };
+
+interface GestureCoordinatesTrackingInterface {
+  [s: string]: number;
+}
 
 const GestureDetector = ({
   children,
@@ -24,21 +26,21 @@ const GestureDetector = ({
   onProgress,
   onGestureFinish,
   onPanRelease,
-  throttleMs,
 }: GestureDetectorProps) => {
-  const gesturesArr = Object.keys(gestures);
+  const gesturesArr: string[] = Object.keys(gestures);
 
   const initMatchedGestureCoordinates = () => {
-    const obj = {};
+    const obj: GestureCoordinatesTrackingInterface = {};
     for (let i = 0; i < gesturesArr.length; i++) {
       obj[gesturesArr[i]] = 0;
     }
     return obj;
   };
 
-  const [coordinate, setCoordinate] = useState(null);
-  const [startCoordinate, setStartCoordinate] = useState(null);
-  const [path, setPath] = useState([]);
+  // difference between useState<Coordinate[]> and useState<[Coordinate?]> ?
+  const [coordinate, setCoordinate] = useState<Coordinate | null>(null);
+  const [startCoordinate, setStartCoordinate] = useState<Coordinate | null>(null);
+  const [path, setPath] = useState<Coordinate[]>([]);
   const [matchedGestureCoordinates, setMatchedGestureCoordinates] = useState(
     initMatchedGestureCoordinates(),
   );
@@ -52,27 +54,40 @@ const GestureDetector = ({
     setCurrentPathCoordinateIndex(0);
   };
 
-  const addBreadcrumbToPath = ({ x, y }) => {
+  const addBreadcrumbToPath = ({ x, y }: { x: number; y: number }) => {
     if (!startCoordinate) {
       setStartCoordinate({ x, y });
       setPath([{ x: 0, y: 0 }]);
     } else {
-      setPath([...path, normalizeCoordinate({ x, y })]);
+      const normalizedCoordinate = normalizeCoordinate({ x, y });
+      if (normalizedCoordinate) {
+        setPath([...path, normalizedCoordinate]);
+      }
     }
   };
 
-  const normalizeCoordinate = ({ x, y }) => ({
-    x: x - startCoordinate.x,
-    y: y - startCoordinate.y,
-  });
+  const normalizeCoordinate = ({ x, y }: { x: number; y: number }) =>
+    startCoordinate
+      ? {
+          x: x - startCoordinate.x,
+          y: y - startCoordinate.y,
+        }
+      : null;
 
-  const coordinateIsInRange = ({ gestureCoordinate, candidateCoordinate, radius }) =>
+  const coordinateIsInRange = ({
+    gestureCoordinate,
+    candidateCoordinate,
+    radius,
+  }: {
+    gestureCoordinate: Coordinate;
+    candidateCoordinate: Coordinate;
+    radius: number;
+  }) =>
     Math.pow(candidateCoordinate.x - gestureCoordinate.x, 2) +
       Math.pow(candidateCoordinate.y - gestureCoordinate.y, 2) <
     Math.pow(radius, 2);
-  // Math.pow(radius / 2, 2);
 
-  useEffect(() => {
+  const compute = () => {
     if (currentPathCoordinateIndex < path.length - 1) {
       for (let i = 0; i < gesturesArr.length; i++) {
         const gestureKey = gesturesArr[i];
@@ -105,7 +120,9 @@ const GestureDetector = ({
       }
       setCurrentPathCoordinateIndex(currentPathCoordinateIndex + 1);
     }
-  }, [
+  };
+
+  useEffect(() => compute(), [
     path,
     currentPathCoordinateIndex,
     gesturesArr,
@@ -116,15 +133,11 @@ const GestureDetector = ({
     onGestureFinish,
   ]);
 
-  const throttledOnGestureEventHandler = _.throttle(({ nativeEvent }) => {
-    setCoordinate({ x: nativeEvent.absoluteX, y: nativeEvent.absoluteY });
-    addBreadcrumbToPath(nativeEvent);
-  }, throttleMs);
-
   return (
     <PanGestureHandler
-      onGestureEvent={event => {
-        throttledOnGestureEventHandler({ nativeEvent: event.nativeEvent });
+      onGestureEvent={({ nativeEvent }) => {
+        addBreadcrumbToPath(nativeEvent);
+        setCoordinate({ x: nativeEvent.absoluteX, y: nativeEvent.absoluteY });
       }}
       onHandlerStateChange={({ nativeEvent }) => {
         if (nativeEvent.state === State.END) {
@@ -141,7 +154,6 @@ const GestureDetector = ({
 GestureDetector.defaultProps = {
   gestures: [],
   slopRadius: 50,
-  throttleMs: 500,
   onProgress: () => {},
   onGestureFinish: () => {},
   onPanRelease: () => {},
