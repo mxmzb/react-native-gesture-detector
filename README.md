@@ -8,9 +8,11 @@
 
 ## Demos
 
-<img width="100" src="example/assets/demo-coil.gif">
-<img width="100" src="example/assets/demo-multiple-gestures.gif">
-<img width="100" src="example/assets/demo-triangle.gif">
+<p>
+<img width="260" src="example/assets/demo-coil.gif">
+<img width="260" src="example/assets/demo-multiple-gestures.gif">
+<img width="260" src="example/assets/demo-triangle.gif">
+<p>
 
 ### Example app
 
