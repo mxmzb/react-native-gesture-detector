@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { SafeAreaView, View, Text, Alert } from "react-native";
-import GestureDetector, { GesturePath } from "react-native-gesture-detector";
+import GestureDetector, { GesturePath, Cursor } from "react-native-gesture-detector";
 
 const gestures = {
   Coil: [
@@ -61,7 +61,7 @@ const CoilScreen = () => {
             }}
             gestures={gestures}
           >
-            {() => (
+            {({ coordinate }) => (
               <View
                 style={{
                   position: "relative",
@@ -72,8 +72,9 @@ const CoilScreen = () => {
                 }}
               >
                 <View style={{ position: "relative", width: "100%", height: "100%" }}>
-                  <GesturePath path={coilPath} color="green" slopRadius={35} />
+                  <GesturePath path={gestures["Coil"]} color="green" slopRadius={35} />
                 </View>
+                {coordinate && <Cursor {...coordinate} />}
               </View>
             )}
           </GestureDetector>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { SafeAreaView, View, Text, Alert } from "react-native";
-import GestureDetector, { GesturePath } from "react-native-gesture-detector";
+import GestureDetector, { GesturePath, Cursor } from "react-native-gesture-detector";
 
 const gestures = {
   Triangle: [
@@ -57,7 +57,7 @@ const TriangleScreen = () => {
             }}
             gestures={gestures}
           >
-            {() => (
+            {({ coordinate }) => (
               <View
                 style={{
                   position: "relative",
@@ -68,8 +68,9 @@ const TriangleScreen = () => {
                 }}
               >
                 <View style={{ position: "relative", width: "100%", height: "100%" }}>
-                  <GesturePath path={trianglePath} color="green" slopRadius={30} />
+                  <GesturePath path={gestures["Triangle"]} color="green" slopRadius={30} />
                 </View>
+                {coordinate && <Cursor {...coordinate} />}
               </View>
             )}
           </GestureDetector>

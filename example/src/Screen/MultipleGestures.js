@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { SafeAreaView, View, Text, Alert } from "react-native";
-import GestureDetector, { GesturePath } from "react-native-gesture-detector";
+import GestureDetector, { GesturePath, Cursor } from "react-native-gesture-detector";
 
 const gestures = {
   "Parabola Left": [
@@ -75,7 +75,7 @@ const MultipleScreen = () => {
             }}
             gestures={gestures}
           >
-            {() => (
+            {({ coordinate }) => (
               <View
                 style={{
                   position: "relative",
@@ -91,6 +91,7 @@ const MultipleScreen = () => {
                   <GesturePath path={gestures["Parabola Right"]} color="red" slopRadius={35} />
                   <GesturePath path={gestures["Straight Up"]} color="yellow" slopRadius={35} />
                 </View>
+                {coordinate && <Cursor {...coordinate} />}
               </View>
             )}
           </GestureDetector>
