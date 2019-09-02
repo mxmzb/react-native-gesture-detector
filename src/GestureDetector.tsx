@@ -1,5 +1,18 @@
-import React, { useState, useEffect, ReactNode, useRef } from "react";
+import React, { useState, useEffect, ReactNode, SyntheticEvent } from "react";
+// @ts-ignore or we will break expo example
 import { PanGestureHandler, State } from "react-native-gesture-handler";
+
+interface PanGestureHandlerEventExtra {
+  state: State;
+  x: number;
+  y: number;
+  absoluteX: number;
+  absoluteY: number;
+  translationX: number;
+  translationY: number;
+  velocityX: number;
+  velocityY: number;
+}
 
 interface Coordinate {
   x: number;
@@ -54,7 +67,7 @@ const GestureDetector = ({
     setCurrentPathCoordinateIndex(0);
   };
 
-  const addBreadcrumbToPath = ({ x, y }: { x: number; y: number }) => {
+  const addBreadcrumbToPath = ({ x, y }: PanGestureHandlerEventExtra) => {
     if (!startCoordinate) {
       setStartCoordinate({ x, y });
       setPath([{ x: 0, y: 0 }]);
@@ -106,7 +119,7 @@ const GestureDetector = ({
               gesture: gestureKey,
             });
 
-            if (matchedGestureCoordinates[gestureKey] === gesture.length - 2) {
+            if (matchedGestureCoordinates[gestureKey] + 1 === gesture.length) {
               onGestureFinish(gestureKey);
             }
 
@@ -135,11 +148,11 @@ const GestureDetector = ({
 
   return (
     <PanGestureHandler
-      onGestureEvent={({ nativeEvent }) => {
+      onGestureEvent={({ nativeEvent }: { nativeEvent: PanGestureHandlerEventExtra }) => {
         addBreadcrumbToPath(nativeEvent);
-        setCoordinate({ x: nativeEvent.absoluteX, y: nativeEvent.absoluteY });
+        setCoordinate({ x: nativeEvent.x, y: nativeEvent.y });
       }}
-      onHandlerStateChange={({ nativeEvent }) => {
+      onHandlerStateChange={({ nativeEvent }: { nativeEvent: PanGestureHandlerEventExtra }) => {
         if (nativeEvent.state === State.END) {
           reset();
           onPanRelease();

@@ -15,7 +15,9 @@ const baseStyle = {
   marginLeft: -15,
   marginTop: -15,
   borderRadius: 15,
-  backgroundColor: "#000",
+  backgroundColor: "#555",
+  borderWidth: 1,
+  borderColor: "#000",
   zIndex: 999,
 };
 
@@ -51,7 +53,7 @@ const Cursor = ({ x, y, throttleMs }: CursorProps) => {
 Cursor.defaultProps = {
   x: 0,
   y: 0,
-  throttleMs: __DEV__ ? 50 : 35,
+  throttleMs: __DEV__ ? 50 : 25,
 };
 
 export default Cursor;
