@@ -165,7 +165,7 @@ const GestureDetector = ({
 };
 
 GestureDetector.defaultProps = {
-  gestures: [],
+  gestures: {},
   slopRadius: 50,
   onProgress: () => {},
   onGestureFinish: () => {},
