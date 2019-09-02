@@ -8,9 +8,9 @@
 
 ## Demos
 
-<img src="example/assets/demo-coil.gif" alt="" style="max-width: 320px;">
-<img src="example/assets/demo-multiple-gestures.gif" alt="" style="max-width: 320px;">
-<img src="example/assets/demo-triangle.gif" alt="" style="max-width: 320px;">
+<img width="100" src="example/assets/demo-coil.gif">
+<img width="100" src="example/assets/demo-multiple-gestures.gif">
+<img width="100" src="example/assets/demo-triangle.gif">
 
 ### Example app
 
