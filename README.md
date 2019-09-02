@@ -8,9 +8,9 @@
 
 ## Demos
 
-<img src="/mxmzb/react-native-gesture-detector/raw/master/example/assets/demo-coil.gif" alt="" style="max-width: 320px;">
-<img src="/mxmzb/react-native-gesture-detector/raw/master/example/assets/demo-multiple-gestures.gif" alt="" style="max-width: 320px;">
-<img src="/mxmzb/react-native-gesture-detector/raw/master/example/assets/demo-triangle.gif" alt="" style="max-width: 320px;">
+<img src="example/assets/demo-coil.gif" alt="" style="max-width: 320px;">
+<img src="example/assets/demo-multiple-gestures.gif" alt="" style="max-width: 320px;">
+<img src="example/assets/demo-triangle.gif" alt="" style="max-width: 320px;">
 
 ### Example app
 
