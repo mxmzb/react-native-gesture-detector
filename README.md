@@ -8,7 +8,7 @@
 
 ## Demos
 
-![](example/assets/demo-coil.gif | width=260) ![](example/assets/demo-multiple-gestures.gif | width=260) ![](example/assets/demo-triangle.gif | width=260)
+![](example/assets/demo-coil.gif) ![](example/assets/demo-multiple-gestures.gif) ![](example/assets/demo-triangle.gif)
 
 ### Example app
 
