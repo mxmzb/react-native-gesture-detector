@@ -102,7 +102,7 @@ const CoilExample = () => (
 
 ## Documentation and API
 
-#### `GestureDetector`
+### `GestureDetector`
 
 `GestureDetector` is a render props component. The child function has the form `children({ coordinate: { x: number, y: number } })`
 
@@ -114,7 +114,7 @@ const CoilExample = () => (
 | `onGestureFinish` |        `(gesture) => {}`        |                   `function`                    | A callback, which is called when the user finishes a gesture. Receives the gesture key of the finished gesture.                                   |
 | `onPanRelease`    |           `() => {}`            |                   `function`                    | Callback, when the user releases the finger. Receives no arguments.                                                                               |
 
-#### `GesturePath`
+### `GesturePath`
 
 `GesturePath` is a helper component, which paints a gesture visually in a container. The container should have `position: absolute;` set in its style property. `{ x, y }` is a coordinate object. An array of coordinate objects must be passed to paint the gesture on the screen. This component should be only used in development to define and refine gestures.
 
@@ -124,7 +124,7 @@ const CoilExample = () => (
 | `slopRadius` |  `50`   | `number` | The radius around each coordinate, in which the user touch event will be associated with the gesture (or rather the radius of the circle being painted for each coordinate, as this whole component has no functionality really and is purely visual) |
 | `color`      | `black` | `string` | A string of a valid CSS color property                                                                                                                                                                                                                |
 
-#### `Cursor`
+### `Cursor`
 
 Paints a black, round indicator at the passed coordinate. The only useful situation is in development and you probably will use it like this, where `coordinate` is passed from the [`GestureDetector`](#gesturedetector) render props function:
 
