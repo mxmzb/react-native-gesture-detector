@@ -1,10 +1,12 @@
 <p align="center">
+  <img height="150" src="img/logo-emoji.png" />
   <h1 align="center">React Native Gesture Detector</h1>
   <h3 align="center">Create and detect custom gestures on React Native.</h3>
 </p>
 
 [![Version](https://img.shields.io/npm/v/react-native-gesture-detector)](https://github.com/mxmzb/react-native-gesture-detector)
 [![License](https://img.shields.io/npm/l/react-native-gesture-detector)](https://npmjs.org/package/react-native-gesture-detector)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/react-native-gesture-detector)](https://npmjs.org/package/react-native-gesture-detector)
 
 ## Demos
 
