@@ -4,16 +4,16 @@
   <h3 align="center">Create and detect custom gestures on React Native.</h3>
 </p>
 
-[![Version](https://img.shields.io/npm/v/react-native-gesture-detector)](https://github.com/mxmzb/react-native-gesture-detector)
-[![License](https://img.shields.io/npm/l/react-native-gesture-detector)](https://npmjs.org/package/react-native-gesture-detector)
+[![Version](https://img.shields.io/npm/v/react-native-gesture-detector)](https://npmjs.org/package/react-native-gesture-detector)
+[![License](https://img.shields.io/npm/l/react-native-gesture-detector)](https://github.com/mxmzb/react-native-gesture-detector/blob/master/LICENSE)
 [![Bundle Size](https://img.shields.io/bundlephobia/min/react-native-gesture-detector)](https://npmjs.org/package/react-native-gesture-detector)
 
 ## Demos
 
 <p>
-<img width="260" src="example/assets/demo-coil.gif">
-<img width="260" src="example/assets/demo-multiple-gestures.gif">
-<img width="260" src="example/assets/demo-triangle.gif">
+<img width="260" src="https://raw.githubusercontent.com/mxmzb/react-native-gesture-detector/master/example/assets/demo-coil.gif">
+<img width="260" src="https://raw.githubusercontent.com/mxmzb/react-native-gesture-detector/master/example/assets/demo-multiple-gestures.gif">
+<img width="260" src="https://raw.githubusercontent.com/mxmzb/react-native-gesture-detector/master/example/assets/demo-triangle.gif">
 <p>
 
 ### Example app
@@ -140,7 +140,6 @@ Paints a black, round indicator at the passed coordinate. The only useful situat
 
 ## Roadmap
 
-- [ ] Create a logo
 - [ ] Write some tests
 - [ ] Make one more cool example
 - [ ] Create a component, that will create gesture coordinates from your gesture
