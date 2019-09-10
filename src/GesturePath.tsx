@@ -7,7 +7,7 @@ interface Coordinate {
 }
 
 type GesturePathProps = {
-  path: [Coordinate];
+  path: Coordinate[];
   color: string;
   slopRadius: number;
 };
