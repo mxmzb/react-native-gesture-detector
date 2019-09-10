@@ -4,6 +4,7 @@ import { createDrawerNavigator } from "react-navigation-drawer";
 import MultipleGesturesScreen from "./src/Screen/MultipleGestures";
 import TriangleScreen from "./src/Screen/Triangle";
 import CoilScreen from "./src/Screen/Coil";
+import CreateGestureScreen from "./src/Screen/CreateGesture";
 
 const DrawerNavigator = createDrawerNavigator(
   {
@@ -16,9 +17,12 @@ const DrawerNavigator = createDrawerNavigator(
     Coil: {
       screen: CoilScreen,
     },
+    CreateGesture: {
+      screen: CreateGestureScreen,
+    },
   },
   {
-    initialRouteName: "MultipleGestures",
+    initialRouteName: "CreateGesture",
   },
 );
 
