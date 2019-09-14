@@ -10,32 +10,35 @@ type GesturePathProps = {
   path: Coordinate[];
   color: string;
   slopRadius: number;
+  center: boolean;
 };
 
-const baseStyle: ViewStyle = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  opacity: 0.4,
-};
+const GesturePath = ({ path, color, slopRadius, center = true }: GesturePathProps) => {
+  const baseStyle: ViewStyle = {
+    position: "absolute",
+    top: center ? "50%" : 0,
+    left: center ? "50%" : 0,
+    opacity: 0.4,
+  };
 
-const GesturePath = ({ path, color, slopRadius }: GesturePathProps) => (
-  <>
-    {path.map((point, index) => (
-      <Animated.View
-        style={Object.assign({}, baseStyle, {
-          width: slopRadius * 2,
-          height: slopRadius * 2,
-          borderRadius: slopRadius,
-          backgroundColor: color,
-          marginLeft: point.x - slopRadius,
-          marginTop: point.y - slopRadius,
-        })}
-        key={index}
-      />
-    ))}
-  </>
-);
+  return (
+    <>
+      {path.map((point, index) => (
+        <Animated.View
+          style={Object.assign({}, baseStyle, {
+            width: slopRadius * 2,
+            height: slopRadius * 2,
+            borderRadius: slopRadius,
+            backgroundColor: color,
+            marginLeft: point.x - slopRadius,
+            marginTop: point.y - slopRadius,
+          })}
+          key={index}
+        />
+      ))}
+    </>
+  );
+};
 
 GesturePath.defaultProps = {
   path: [],
