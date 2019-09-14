@@ -5,7 +5,7 @@ import { Coordinate, Direction } from "./Types";
 type Props = {
   pointDistance: number;
   path: Coordinate[];
-  onCapture: (progress: number) => void;
+  onCapture: () => void;
 };
 
 // point and coordinate are essentially interface. the difference is merely,
@@ -13,9 +13,12 @@ type Props = {
 // clearer imho than "coordinateDistance"), while coordinate is just an internal
 // variable name
 const useRecorder = ({ path, pointDistance, onCapture }: Props) => {
-  const [currentDirection, setCurrentDirection] = useState<Direction | null>(null);
   const [pathIndex, setPathIndex] = useState<number>(0);
   const [gesture, setGesture] = useState<Coordinate[]>([]);
+  // first element is null, as we don't have a direction with only one coordinate
+  const [gestureDirectionHistory, setGestureDirectionHistory] = useState<Direction[]>([
+    { x: null, y: null },
+  ]);
 
   useEffect(() => {
     if (pathIndex < path.length - 1) {
@@ -23,40 +26,41 @@ const useRecorder = ({ path, pointDistance, onCapture }: Props) => {
         if (gesture.length === 0) {
           setGesture([{ x: path[0].x, y: path[0].y }]);
         } else {
-          const tmpNextGesturePoint = getNextGesturePoint({
-            prevGesturePoint: gesture[gesture.length - 1],
-            pathCoordinate: path[pathIndex],
-            desiredDistance: pointDistance,
-          });
-
-          // console.log("path", path);
-          // console.log("gesture", gesture);
-          // console.log("pathIndex", pathIndex);
-          setCurrentDirection(calculateDirection({ a: path[pathIndex], b: path[pathIndex + 1] }));
-          setGesture(state => [...state, tmpNextGesturePoint]);
+          if (calculateDistance(gesture[gesture.length - 1], path[pathIndex]) >= pointDistance) {
+            const nextDirection = calculateDirection(gesture[gesture.length - 1], path[pathIndex]);
+            setGestureDirectionHistory(state => [...state, nextDirection]);
+            setGesture(state => [...state, path[pathIndex]]);
+            onCapture();
+          }
         }
       }
       setPathIndex(state => state + 1);
     }
   }, [gesture, path, pointDistance, pathIndex]);
 
-  const calculateDirection = ({ a, b }: { a: Coordinate; b: Coordinate }): Direction => {
+  const reset = () => {
+    setPathIndex(0);
+    setGesture([]);
+    setGestureDirectionHistory([{ x: null, y: null }]);
+  };
+
+  const calculateDirection = (pointA: Coordinate, pointB: Coordinate): Direction => {
     let x = null,
       y = null;
 
-    if (a.x < b.x) {
+    if (pointA.x < pointB.x) {
       x = "right";
     }
 
-    if (a.x > b.x) {
+    if (pointA.x > pointB.x) {
       x = "left";
     }
 
-    if (a.y < b.y) {
+    if (pointA.y < pointB.y) {
       y = "down";
     }
 
-    if (a.y > b.y) {
+    if (pointA.y > pointB.y) {
       y = "up";
     }
 
@@ -66,49 +70,18 @@ const useRecorder = ({ path, pointDistance, onCapture }: Props) => {
     };
   };
 
+  // possibly for future computation
   const directionHasChanged = (currentDirection: Direction, nextDirection: Direction) =>
     JSON.stringify(currentDirection) !== JSON.stringify(nextDirection);
 
-  const calculateDistance = ({ a, b }: { a: Coordinate; b: Coordinate }) => {
-    return Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
-  };
-
-  const calculateDistanceFactor = ({
-    a,
-    b,
-    desiredDistance,
-  }: {
-    a: Coordinate;
-    b: Coordinate;
-    desiredDistance: number;
-  }) => {
-    return desiredDistance / calculateDistance({ a, b });
-  };
-
-  const getNextGesturePoint = ({
-    prevGesturePoint,
-    pathCoordinate,
-    desiredDistance,
-  }: {
-    prevGesturePoint: Coordinate;
-    pathCoordinate: Coordinate;
-    desiredDistance: number;
-  }) => {
-    const distanceFactor = calculateDistanceFactor({
-      a: prevGesturePoint,
-      b: pathCoordinate,
-      desiredDistance,
-    });
-
-    return {
-      x: prevGesturePoint.x + (pathCoordinate.x - prevGesturePoint.x) * distanceFactor,
-      y: prevGesturePoint.y + (pathCoordinate.y - prevGesturePoint.y) * distanceFactor,
-    };
+  const calculateDistance = (pointA: Coordinate, pointB: Coordinate) => {
+    return Math.sqrt(Math.pow(pointA.x - pointB.x, 2) + Math.pow(pointA.y - pointB.y, 2));
   };
 
   return {
     gesture,
-    currentDirection,
+    gestureDirectionHistory,
+    reset,
   };
 };
 
