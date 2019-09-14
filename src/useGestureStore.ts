@@ -1,6 +1,4 @@
-import { useState, useEffect } from "react";
-// @ts-ignore or we will break expo example
-
+import { useState } from "react";
 import { Coordinate, PanGestureHandlerEventExtra } from "./Types";
 
 const useGestureStore = () => {
@@ -37,6 +35,7 @@ const useGestureStore = () => {
   return {
     path,
     coordinate,
+    offset: startCoordinate,
     addBreadcrumbToPath,
     setCoordinate,
     reset,
