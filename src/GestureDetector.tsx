@@ -8,7 +8,7 @@ import useGestureStore from "./useGestureStore";
 import { PanGestureHandlerEventExtra, GestureDetectorsInterface, Coordinate } from "./Types";
 
 type Props = {
-  children: (props: { coordinate: Coordinate | null }) => ReactNode;
+  children: (props: { coordinate: Coordinate | null; offset: Coordinate | null }) => ReactNode;
   slopRadius: number;
   gestures: { [key: string]: Coordinate[] };
   onProgress: (args: { progress: number; gesture: string }) => void;
@@ -28,6 +28,7 @@ const GestureDetector = ({
     reset: resetStore,
     addBreadcrumbToPath,
     coordinate,
+    offset,
     setCoordinate,
     path,
   } = useGestureStore();
@@ -75,7 +76,7 @@ const GestureDetector = ({
         }
       }}
     >
-      {children({ coordinate })}
+      {children({ coordinate, offset })}
     </PanGestureHandler>
   );
 };
