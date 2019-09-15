@@ -12,7 +12,9 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc -p .",
-    "build:watch": "tsc --watch -p ."
+    "build:watch": "tsc --watch -p .",
+    "tslint": "tsc --noEmit",
+    "test": "jest"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
