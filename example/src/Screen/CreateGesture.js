@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { SafeAreaView, View, Text, Alert } from "react-native";
+import _ from "lodash";
 import GestureDetector, {
   GesturePath,
   Cursor,
@@ -7,15 +8,21 @@ import GestureDetector, {
 } from "react-native-gesture-detector";
 
 const CreateGestureScreen = () => {
-  const [tmpOffset, setTmpOffset] = useState(null);
+  const [recorderOffset, setRecorderOffset] = useState(null);
+  const [detectorOffset, setDetectorOffset] = useState(null);
   const [finishedGesture, setFinishedGesture] = useState([]);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <GestureRecorder onPanRelease={gesture => setFinishedGesture(gesture)}>
+      <GestureRecorder
+        onPanRelease={gesture => {
+          setFinishedGesture(gesture);
+          setDetectorOffset(recorderOffset);
+        }}
+      >
         {({ gesture, offset }) => {
-          if (tmpOffset !== offset && offset !== null) {
-            setTmpOffset(offset);
+          if (!_.isEqual(offset, recorderOffset) && offset !== null) {
+            setRecorderOffset(offset);
           }
 
           return (
@@ -31,14 +38,14 @@ const CreateGestureScreen = () => {
               <View style={{ position: "relative", width: "100%", height: "100%" }}>
                 <GesturePath
                   path={gesture.map(coordinate => {
-                    if (!tmpOffset) {
-                      return coordinate;
+                    if (recorderOffset) {
+                      return {
+                        x: coordinate.x + recorderOffset.x,
+                        y: coordinate.y + recorderOffset.y,
+                      };
                     }
 
-                    return {
-                      x: coordinate.x + tmpOffset.x,
-                      y: coordinate.y + tmpOffset.y,
-                    };
+                    return coordinate;
                   })}
                   color="green"
                   slopRadius={30}
@@ -67,14 +74,14 @@ const CreateGestureScreen = () => {
             <View style={{ position: "relative", width: "100%", height: "100%" }}>
               <GesturePath
                 path={finishedGesture.map(coordinate => {
-                  if (!tmpOffset) {
-                    return coordinate;
+                  if (detectorOffset) {
+                    return {
+                      x: coordinate.x + detectorOffset.x,
+                      y: coordinate.y + detectorOffset.y,
+                    };
                   }
 
-                  return {
-                    x: coordinate.x + tmpOffset.x,
-                    y: coordinate.y + tmpOffset.y,
-                  };
+                  return coordinate;
                 })}
                 color="green"
                 slopRadius={30}
