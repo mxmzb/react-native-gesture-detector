@@ -1,12 +1,13 @@
-<p align="center">
-  <img height="150" src="img/logo-emoji.png" />
-  <h1 align="center">React Native Gesture Detector</h1>
-  <h3 align="center">Create and detect custom gestures on React Native.</h3>
-</p>
+<img src="https://raw.githubusercontent.com/mxmzb/react-native-gesture-detector/master/img/logo-emoji.png" height="150" />
+
+# React Native Gesture Detector
+
+### Create and detect custom gestures on React Native.
 
 [![Version](https://img.shields.io/npm/v/react-native-gesture-detector)](https://npmjs.org/package/react-native-gesture-detector)
 [![License](https://img.shields.io/npm/l/react-native-gesture-detector)](https://github.com/mxmzb/react-native-gesture-detector/blob/master/LICENSE)
 [![Bundle Size](https://img.shields.io/bundlephobia/min/react-native-gesture-detector)](https://npmjs.org/package/react-native-gesture-detector)
+[![Build](https://img.shields.io/circleci/build/github/mxmzb/react-native-gesture-detector)](https://circleci.com/gh/mxmzb/react-native-gesture-detector/)
 
 ## Demos
 
@@ -137,12 +138,6 @@ Paints a black, round indicator at the passed coordinate. The only useful situat
 | `x`          |                     `0`                     | `number` | The coordinate of the absolute center of the cursor relatively to the parent container.                                                  |
 | `y`          |                     `0`                     | `number` | The coordinate of the absolute center of the cursor relatively to the parent container.                                                  |
 | `throttleMs` | `50` in dev build, `25` in production build | `number` | A performance optimization. Sets the time delay between each rerender of the repositioned cursor. You probably don't want to touch this. |
-
-## Roadmap
-
-- [ ] Write some tests
-- [ ] Make one more cool example
-- [ ] Create a component, that will create gesture coordinates from your gesture
 
 ## License
 
