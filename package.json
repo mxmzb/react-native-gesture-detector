@@ -14,7 +14,8 @@
     "build": "tsc -p .",
     "build:watch": "tsc --watch -p .",
     "tslint": "tsc --noEmit",
-    "test": "jest"
+    "test": "jest",
+    "release": "release-it"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -26,6 +27,7 @@
     "react-native-gesture-handler": ">=1.3.0"
   },
   "devDependencies": {
+    "@release-it/conventional-changelog": "^1.1.0",
     "@types/enzyme": "^3.10.3",
     "@types/enzyme-adapter-react-16": "^1.0.5",
     "@types/jest": "^24.0.18",
@@ -42,8 +44,8 @@
     "react-native": "^0.60.5",
     "react-native-gesture-handler": "^1.4.1",
     "react-test-renderer": "^16.9.0",
+    "release-it": "^12.3.6",
     "ts-jest": "^24.1.0",
-    "typescript": "^3.6.2",
-    "weak": "^1.0.1"
+    "typescript": "^3.6.2"
   }
 }
