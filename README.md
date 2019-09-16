@@ -1,23 +1,37 @@
-<img src="https://raw.githubusercontent.com/mxmzb/react-native-gesture-detector/master/img/logo-emoji.png" height="150" />
+<p align="center">
+  <br />
+  <img src="https://raw.githubusercontent.com/mxmzb/react-native-gesture-detector/master/img/logo-emoji.png" height="150" />
+</p>
 
-# React Native Gesture Detector
+<h1 align="center">React Native Gesture Detector</h1>
+<h3 align="center">Create and detect custom gestures on React Native.</h3>
 
-### Create and detect custom gestures on React Native.
-
-[![Version](https://img.shields.io/npm/v/react-native-gesture-detector)](https://npmjs.org/package/react-native-gesture-detector)
-[![License](https://img.shields.io/npm/l/react-native-gesture-detector)](https://github.com/mxmzb/react-native-gesture-detector/blob/master/LICENSE)
-[![Bundle Size](https://img.shields.io/bundlephobia/min/react-native-gesture-detector)](https://npmjs.org/package/react-native-gesture-detector)
-[![Build](https://img.shields.io/circleci/build/github/mxmzb/react-native-gesture-detector)](https://circleci.com/gh/mxmzb/react-native-gesture-detector/)
+<p align="center">
+  <a href="https://npmjs.org/package/react-native-gesture-detector">
+    <img src="https://img.shields.io/npm/v/react-native-gesture-detector" />
+  </a>
+  <a href="https://github.com/mxmzb/react-native-gesture-detector/blob/master/LICENSE">
+    <img src="https://img.shields.io/npm/l/react-native-gesture-detector" />
+  </a>
+  <a href="https://npmjs.org/package/react-native-gesture-detector">
+    <img src="https://img.shields.io/bundlephobia/min/react-native-gesture-detector" />
+  </a>
+  <a href="https://circleci.com/gh/mxmzb/react-native-gesture-detector/">
+    <img src="https://img.shields.io/circleci/build/github/mxmzb/react-native-gesture-detector" />
+  </a>
+  <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" />
+</p>
 
 ## Demos
 
 <p>
-<img width="260" src="https://raw.githubusercontent.com/mxmzb/react-native-gesture-detector/master/example/assets/demo-coil.gif">
-<img width="260" src="https://raw.githubusercontent.com/mxmzb/react-native-gesture-detector/master/example/assets/demo-multiple-gestures.gif">
-<img width="260" src="https://raw.githubusercontent.com/mxmzb/react-native-gesture-detector/master/example/assets/demo-triangle.gif">
+  <img width="217" src="https://raw.githubusercontent.com/mxmzb/react-native-gesture-detector/master/example/assets/demo-coil.gif">
+  <img width="217" src="https://raw.githubusercontent.com/mxmzb/react-native-gesture-detector/master/example/assets/demo-multiple-gestures.gif">
+  <img width="217" src="https://raw.githubusercontent.com/mxmzb/react-native-gesture-detector/master/example/assets/demo-triangle.gif">
+  <img width="217" src="https://raw.githubusercontent.com/mxmzb/react-native-gesture-detector/master/example/assets/demo-gesture-recorder.gif">
 <p>
 
-### Example app
+### Example app and usage
 
 Feel free to run the included Expo app:
 
@@ -28,11 +42,15 @@ $ yarn
 $ yarn start
 ```
 
+Check [the code for the screens](https://github.com/mxmzb/react-native-gesture-detector/tree/master/example/src/Screen) to see how they are done!
+
 ## Intro
 
-This package originated from a real life need to detect custom gestures. The idea for implementation originated from this [stellar answer](https://stackoverflow.com/questions/20821358/gesture-detection-algorithm-based-on-discrete-points) on StackOverflow. The result is not 100% foolproof, but performant and extremely simple to use.
+This package originated from a real life **need to detect custom gestures**. The idea for implementation originated from this [stellar answer](https://stackoverflow.com/questions/20821358/gesture-detection-algorithm-based-on-discrete-points) on StackOverflow. The result is not 100% foolproof, but rock solid, performant and extremely simple to use.
 
-Because the library strongly uses React hooks, you must use at least `react@16.8.0`.
+The package comes with another, insanely cool component `GestureRecorder`, which allows you to create gestures **on the fly**. Yep, just plug it in, paint the gesture and you will receive the coordinate data for your supercomplex, custom gesture. You can use it to just **use the data points as a predefined gesture** in your app, or **you can even let your app users create their own custom gestures**, if that fits your game plan!
+
+Because the library significantly uses React hooks, you must use at least `react@16.8.0`.
 
 ## Installation
 
@@ -44,7 +62,11 @@ $ yarn add react-native-gesture-handler lodash # install peer dependencies
 ## Quickstart
 
 ```jsx
-import GestureDetector, { GesturePath, Cursor } from "react-native-gesture-detector";
+import GestureDetector, {
+  GestureRecorder,
+  GesturePath,
+  Cursor,
+} from "react-native-gesture-detector";
 
 const gestures = {
   // this will result in the gesture shown in the first demo give above
@@ -101,6 +123,21 @@ const CoilExample = () => (
     )}
   </GestureDetector>
 );
+
+const RecordGestureExample = () => {
+  // finishedGesture will look like gestures["Coil"] from the top
+  const [finishedGesture, setFinishedGesture] = useState([]);
+
+  return (
+    <GestureRecorder onPanRelease={gesture => setFinishedGesture(gesture)}>
+      {({ gesture }) => (
+        <View style={{ position: "relative", width: "100%", height: "100%" }}>
+          <GesturePath path={gesture} color="green" slopRadius={35} />
+        </View>
+      )}
+    </GestureRecorder>
+  );
+};
 ```
 
 ## Documentation and API
@@ -116,6 +153,22 @@ const CoilExample = () => (
 | `onProgress`      | `({ progress, gesture }) => {}` |                   `function`                    | A callback, which is called on each predefined gesture coordinate passed by the user.                                                             |
 | `onGestureFinish` |        `(gesture) => {}`        |                   `function`                    | A callback, which is called when the user finishes a gesture. Receives the gesture key of the finished gesture.                                   |
 | `onPanRelease`    |           `() => {}`            |                   `function`                    | Callback, when the user releases the finger. Receives no arguments.                                                                               |
+
+### `GestureRecorder`
+
+`GestureRecorder` is a render props component. The child function has the form `children({ gesture: [{ x: string, y: string }, { x: string, y: string }, ...], gestureDirectionHistory: [{ x: string, y: string }, { x: string, y: string }, ...], offset: { x: number, y: number } })`.
+
+`gesture` is an array of coordinates. They are generated based on the `pointDistance` prop of the component.
+
+`gestureDirectionHistory` will tell you accordingly to `gesture` which direction the gesture is moving there. This might give somewhat unreliable data currently. A direction object looks like `{ x: "left", y: "up" }`.
+
+`offset` will artificially add an horizontal and vertical offset to the coordinates. This does not change the detection of the defined gesture at all. It's just a helper to use with the `GesturePath` component to paint the path where you actually draw. Check the [`GestureRecorder` example screen](https://github.com/mxmzb/react-native-gesture-detector/blob/master/example/src/Screen/CreateGesture.js) for more details on this.
+
+| Prop            |      Default      |    Type    | Description                                                                                                                                                                                                                                                      |
+| :-------------- | :---------------: | :--------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pointDistance` |        20         |  `number`  | The minimum distance between points that you want to be recorded. So default wise, every 20px (or more, usually depending on the phone hardware and the speed of the finger moving over the display) the component will add another point to the `gesture` array |
+| `onCapture`     |    `() => {}`     | `function` | A callback, which is called every time the component is adding a coordinate to the `gesture` array                                                                                                                                                               |
+| `onPanRelease`  | `(gesture) => {}` | `function` | Callback, when the user releases the finger. Receives the fully drawn gesture in form of a coordinate array.                                                                                                                                                     |
 
 ### `GesturePath`
 
