@@ -3,3 +3,8 @@ src
 example
 .DS_Store
 img
+.jest
+jest
+jest.config.js
+.circleci
+__tests__
