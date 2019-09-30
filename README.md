@@ -33,7 +33,7 @@
 
 ### Example app and usage
 
-Feel free to run the included Expo app:
+Feel free to test [Snack Expo demo](https://snack.expo.io/@mxmzb/react-native-gesture-detector) or run the included demo app locally:
 
 ```sh
 $ git clone https://github.com/mxmzb/react-native-gesture-detector.git
