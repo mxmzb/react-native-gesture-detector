@@ -3,7 +3,7 @@
   <img src="https://raw.githubusercontent.com/mxmzb/react-native-gesture-detector/master/img/logo-emoji.png" height="150" />
 </p>
 
-<h1 align="center">React Native Gesture Detector</h1>
+<h2 align="center">React Native Gesture Detector</h2>
 <h3 align="center">Create and detect custom gestures on React Native.</h3>
 
 <p align="center">
