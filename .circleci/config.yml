@@ -2,18 +2,18 @@ version: 2
 
 defaults: &defaults
   docker:
-    - image: circleci/node:10.16
+    - image: circleci/node:10.21
   working_directory: ~/project
 
-dependencies:
-  pre:
-    - rm -rf ~/.yarn
-    - npm install -g yarn
-    - yarn -v
-  override:
-    - yarn
-  cache_directories:
-    - ~/.cache/yarn
+# dependencies:
+#   pre:
+#     - rm -rf ~/.yarn
+#     - npm install -g yarn
+#     - yarn -v
+#   override:
+#     - yarn
+#   cache_directories:
+#     - ~/.cache/yarn
 
 jobs:
   install-dependencies:
