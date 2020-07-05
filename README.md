@@ -8,18 +8,18 @@
 
 <p align="center">
   <a href="https://npmjs.org/package/react-native-gesture-detector">
-    <img src="https://img.shields.io/npm/v/react-native-gesture-detector" />
+    <img src="https://img.shields.io/npm/v/react-native-gesture-detector?style=for-the-badge" />
   </a>
   <a href="https://github.com/mxmzb/react-native-gesture-detector/blob/master/LICENSE">
-    <img src="https://img.shields.io/npm/l/react-native-gesture-detector" />
+    <img src="https://img.shields.io/npm/l/react-native-gesture-detector?style=for-the-badge" />
   </a>
   <a href="https://npmjs.org/package/react-native-gesture-detector">
-    <img src="https://img.shields.io/bundlephobia/min/react-native-gesture-detector" />
+    <img src="https://img.shields.io/bundlephobia/min/react-native-gesture-detector?style=for-the-badge" />
   </a>
   <a href="https://circleci.com/gh/mxmzb/react-native-gesture-detector/">
-    <img src="https://img.shields.io/circleci/build/github/mxmzb/react-native-gesture-detector" />
+    <img src="https://img.shields.io/circleci/build/github/mxmzb/react-native-gesture-detector?style=for-the-badge" />
   </a>
-  <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" />
+  <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge&logo=github" />
 </p>
 
 ## Demos
@@ -105,7 +105,7 @@ const gestures = {
 
 const CoilExample = () => (
   <GestureDetector
-    onGestureFinish={gesture => console.log(`Gesture "${gesture}" finished!`)}
+    onGestureFinish={(gesture) => console.log(`Gesture "${gesture}" finished!`)}
     onProgress={({ gesture, progress }) => {
       console.log(`Gesture: ${gesture}, progress: ${progress}`);
     }}
@@ -129,7 +129,7 @@ const RecordGestureExample = () => {
   const [finishedGesture, setFinishedGesture] = useState([]);
 
   return (
-    <GestureRecorder onPanRelease={gesture => setFinishedGesture(gesture)}>
+    <GestureRecorder onPanRelease={(gesture) => setFinishedGesture(gesture)}>
       {({ gesture }) => (
         <View style={{ position: "relative", width: "100%", height: "100%" }}>
           <GesturePath path={gesture} color="green" slopRadius={35} />
