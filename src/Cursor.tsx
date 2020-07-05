@@ -26,7 +26,7 @@ const Cursor = ({ x, y, throttleMs }: CursorProps) => {
   const [translateY] = useState(new Animated.Value(y));
 
   const throttledSetCoordinate = useRef(
-    _.throttle(({ x, y }) => {
+    _.throttle(({ x, y }: { x: number; y: number }) => {
       translateX.setValue(x);
       translateY.setValue(y);
     }, throttleMs),
