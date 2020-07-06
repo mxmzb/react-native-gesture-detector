@@ -1,6 +1,6 @@
 {
   "name": "react-native-gesture-detector",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Easily define and detect custom gestures in React Native.",
   "homepage": "https://maximzubarev.com/projects/react-native-gesture-detector",
   "main": "dist/index.js",
