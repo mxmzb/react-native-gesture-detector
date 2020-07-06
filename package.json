@@ -42,7 +42,7 @@
     "jest-enzyme": "^7.1.1",
     "react": ">=16.8.0",
     "react-dom": "^16.9.0",
-    "react-native": "^0.60.5",
+    "react-native": "^0.62.2",
     "react-native-gesture-handler": "^1.4.1",
     "react-test-renderer": "^16.9.0",
     "release-it": "^13.6.4",

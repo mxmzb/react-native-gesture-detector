@@ -18,7 +18,7 @@ module.exports = {
     "example/node_modules/react-native-gesture-handler/",
   ],
   testPathIgnorePatterns: ["node_modules", "dist"],
-  setupFiles: ["<rootDir>/jest/setup.js"],
-  setupFilesAfterEnv: ["<rootDir>/jest/setupEnzymeAfterEnv.js"],
+  setupFilesAfterEnv: ["jest-enzyme", "<rootDir>/jest/setupEnzymeAfterEnv.js"],
+  testEnvironment: "enzyme",
   cacheDirectory: ".jest/cache",
 };
