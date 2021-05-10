@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "expo": "^34.0.1",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "react": "16.8.3",
     "react-dom": "^16.8.6",
     "react-native": "https://github.com/expo/react-native/archive/sdk-34.0.0.tar.gz",
